@@ -1,0 +1,61 @@
+name: Cruise reward monitor
+
+on:
+  # GitHub's own timer. GitHub often runs these late or skips them under load,
+  # so the README also sets up cron-job.org to trigger this workflow every
+  # 5 minutes via workflow_dispatch, which is far more punctual.
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write   # needed to save state to the `state` branch
+  actions: write    # lets the run keep this workflow enabled (see last step)
+
+concurrency:
+  group: cruise-monitor
+  cancel-in-progress: false   # never interrupt a run mid-save; extra triggers just queue
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Load saved state
+        run: bash scripts/state.sh pull
+
+      - name: Check myVIP cruise rewards
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          HEALTHCHECK_URL: ${{ secrets.HEALTHCHECK_URL }}
+          # Optional tuning via Settings -> Secrets and variables -> Actions -> Variables
+          ALERT_NEW: ${{ vars.ALERT_NEW }}
+          ALERT_RESTOCK: ${{ vars.ALERT_RESTOCK }}
+          ALERT_QUANTITY_INCREASE: ${{ vars.ALERT_QUANTITY_INCREASE }}
+          ALERT_SOLD_OUT: ${{ vars.ALERT_SOLD_OUT }}
+          ALERT_PRICE_CHANGE: ${{ vars.ALERT_PRICE_CHANGE }}
+          DAILY_SUMMARY_HOUR: ${{ vars.DAILY_SUMMARY_HOUR }}
+          TIMEZONE: ${{ vars.TIMEZONE }}
+          SWEEP_DESTINATIONS: ${{ vars.SWEEP_DESTINATIONS }}
+          REMOVAL_CONFIRM_CHECKS: ${{ vars.REMOVAL_CONFIRM_CHECKS }}
+          FAILURE_ALERT_THRESHOLD: ${{ vars.FAILURE_ALERT_THRESHOLD }}
+        run: python3 -m cruisewatch check
+
+      - name: Save state
+        if: always()
+        run: bash scripts/state.sh push
+
+      # GitHub switches off scheduled workflows in repos with no activity for
+      # 60 days. Re-enabling an already-enabled workflow is harmless and keeps
+      # it alive; if this ever fails, the healthchecks.io watchdog still alerts you.
+      - name: Keep workflow enabled
+        if: always()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow enable monitor.yml --repo "${{ github.repository }}" >/dev/null 2>&1 || true

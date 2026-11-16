@@ -1,0 +1,22 @@
+name: Find my Telegram chat ID
+
+# Run this once during setup, after saving TELEGRAM_BOT_TOKEN and pressing
+# START in a chat with your bot. The bot replies to you *in Telegram* with your
+# chat ID, so the ID never appears in the (public) Actions log.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  chat-id:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reply to everyone who has messaged the bot with their chat ID
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: python3 -m cruisewatch chat-id

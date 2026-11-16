@@ -1,0 +1,38 @@
+name: Send test notification
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "What to send"
+        type: choice
+        default: basic
+        options:
+          - basic          # one "it works" message
+          - live-sample    # + a real reward from the live store, formatted as an alert
+          - demo-alerts    # + simulated NEW / RESTOCK / outage alerts from the offline scenario
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      TIMEZONE: ${{ vars.TIMEZONE }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Basic test message
+        if: inputs.mode == 'basic'
+        run: python3 -m cruisewatch test
+      - name: Test message + live sample
+        if: inputs.mode == 'live-sample'
+        run: python3 -m cruisewatch test --live
+      - name: Simulated detection demo
+        if: inputs.mode == 'demo-alerts'
+        run: |
+          python3 -m cruisewatch test
+          python3 -m cruisewatch demo --send
