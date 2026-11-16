@@ -36,6 +36,14 @@ def _int(name: str, default: int) -> int:
         return default
 
 
+def _line(raw: str | None) -> str:
+    """Unset/empty -> Royal Caribbean; "any" or "all" -> no cruise-line filter."""
+    raw = (raw or "").strip()
+    if not raw:
+        return "Royal Caribbean"
+    return "" if raw.lower() in ("any", "all") else raw
+
+
 def _int_list(name: str, default: tuple[int, ...]) -> tuple[int, ...]:
     raw = os.environ.get(name)
     if raw is None or raw.strip() == "":
@@ -70,6 +78,9 @@ class Config:
     timezone: str = "Asia/Bangkok"
     max_individual_alerts: int = 15
     dry_run: bool = False
+    only_cruise_line: str = "Royal Caribbean"
+    only_full_cruises: bool = True
+    only_departure_region: str = "asia"
     extra: dict = field(default_factory=dict)
 
     @classmethod
@@ -93,4 +104,7 @@ class Config:
             timezone=os.environ.get("TIMEZONE", "Asia/Bangkok").strip() or "Asia/Bangkok",
             max_individual_alerts=max(1, _int("MAX_INDIVIDUAL_ALERTS", 15)),
             dry_run=_bool("DRY_RUN", False),
+            only_cruise_line=_line(os.environ.get("ONLY_CRUISE_LINE")),
+            only_full_cruises=_bool("ONLY_FULL_CRUISES", True),
+            only_departure_region=(os.environ.get("ONLY_DEPARTURE_REGION") or "asia").strip().lower(),
         )

@@ -44,6 +44,9 @@ jobs:
           SWEEP_DESTINATIONS: ${{ vars.SWEEP_DESTINATIONS }}
           REMOVAL_CONFIRM_CHECKS: ${{ vars.REMOVAL_CONFIRM_CHECKS }}
           FAILURE_ALERT_THRESHOLD: ${{ vars.FAILURE_ALERT_THRESHOLD }}
+          ONLY_CRUISE_LINE: ${{ vars.ONLY_CRUISE_LINE }}
+          ONLY_FULL_CRUISES: ${{ vars.ONLY_FULL_CRUISES }}
+          ONLY_DEPARTURE_REGION: ${{ vars.ONLY_DEPARTURE_REGION }}
         run: python3 -m cruisewatch check
 
       - name: Save state

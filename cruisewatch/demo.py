@@ -46,14 +46,14 @@ def _remove(feed: dict, award_id: int) -> None:
 
 NEW_CRUISE = {
     "AwardID": 99001, "OfferID": 99901, "PartnerName": "Royal Caribbean",
-    "Title": "7 Night Western Caribbean", "LocationName": "", "OutletName": "Wonder of the Seas",
-    "Price": 400000, "Quantity": 4, "SnipeText": "NEW REWARD!", "SnipeCategory": None,
+    "Title": "6 Night Taiwan & Japan", "LocationName": "", "OutletName": "Spectrum of the Seas",
+    "Price": 380000, "Quantity": 4, "SnipeText": "NEW REWARD!", "SnipeCategory": None,
     "StrikeOutPrice": None, "ExpireTime": "2026-12-31T00:00:00+00:00", "IsPremium": False,
-    "ShortDescription": "Enjoy a sailing for 2 on Royal Caribbeans Wonder of the Seas out of "
-                        "Port Canaveral, Florida for 7 nights sailing on 02/14/2027 in an interior cabin.",
+    "ShortDescription": "Enjoy a sailing for 2 on Royal Caribbeans Spectrum of the Seas out of "
+                        "Hong Kong, China for 6 nights sailing on 02/14/2027 in an interior cabin.",
 }
 NEW_CRUISE_DETAIL = {
-    "Title": "A Cruise for Two - 7 Night Western Caribbean 2/14",
+    "Title": "A Cruise for Two - 6 Night Taiwan & Japan 2/14",
     "Description": NEW_CRUISE["ShortDescription"],
     "OutletName": "Wonder of the Seas",
     "Popouts": [{"Title": "Terms and Conditions",
@@ -90,17 +90,31 @@ def scenario():
     yield "Check 11: API outage (threshold reached)", FetchError("HTTP Error 503: Service Unavailable")
     yield "Check 12: API recovers", copy.deepcopy(feed)
 
-    _set(feed, 6713, Quantity=40)
-    yield "Check 13: available reward topped up 17 → 40", copy.deepcopy(feed)
+    _set(feed, 11024, Quantity=8)
+    yield "Check 13: restocked cruise topped up 3 → 8", copy.deepcopy(feed)
 
     # A reward added between two checks that sold out before we looked.
-    gone = dict(NEW_CRUISE, AwardID=99002, OfferID=99902, Title="4 Night Bahamas Getaway",
-                Quantity=0, SnipeText="sold out", OutletName="Utopia of the Seas",
-                ShortDescription="Set sail from Port Canaveral, FL aboard Utopia of the Seas, sailing on 03/06/2027.")
+    gone = dict(NEW_CRUISE, AwardID=99002, OfferID=99902, Title="5 Night Okinawa & Taiwan",
+                Quantity=0, SnipeText="sold out", OutletName="Ovation of the Seas",
+                ShortDescription="Enjoy a sailing for 2 on Royal Caribbeans Ovation of the Seas out of "
+                                 "Singapore for 5 nights sailing on 03/06/2027.")
     for lane in feed["Lanes"]:
         if lane["Meta"]["Title"] == "All Rewards in Cruise":
             lane["Awards"].append(gone)
     yield "Check 14: new reward already sold out when first seen", copy.deepcopy(feed)
+
+    # Outside your filter: a Florida cruise, an NCL cruise and a free-play top-up -> no messages.
+    usa = dict(NEW_CRUISE, AwardID=99003, OfferID=99903, Title="7 Night Western Caribbean",
+               OutletName="Wonder of the Seas",
+               ShortDescription="Enjoy a sailing for 2 on Royal Caribbeans Wonder of the Seas out of "
+                                "Port Canaveral, Florida for 7 nights sailing on 02/14/2027.")
+    ncl = dict(NEW_CRUISE, AwardID=99004, OfferID=99904, PartnerName="Norwegian Cruise Line",
+               Title="Comp 5 Night NCL Cruise", OutletName=None)
+    for lane in feed["Lanes"]:
+        if lane["Meta"]["Title"] == "All Rewards in Cruise":
+            lane["Awards"] += [usa, ncl]
+    _set(feed, 6713, Quantity=40)
+    yield "Check 15: Florida cruise, NCL cruise, free-play top-up (all filtered out)", copy.deepcopy(feed)
 
 
 def run_demo(send_to: Telegram | None = None, out=print) -> list[tuple[str, list[str]]]:

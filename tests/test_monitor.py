@@ -61,7 +61,9 @@ class Harness:
         self.error = None
         self.now = datetime(2026, 11, 16, 3, 0, tzinfo=timezone.utc)
         self.cfg = Config(state_file=Path(self.tmp.name) / "state.json", daily_summary_hour=-1,
-                          sweep_destinations=(1,), dry_run=True, **cfg)
+                          sweep_destinations=(1,), dry_run=True,
+                          **{"only_cruise_line": "", "only_full_cruises": False,
+                             "only_departure_region": "any", **cfg})
         self.tg = FakeTelegram()
 
     def fetch(self, url):
@@ -284,6 +286,63 @@ class DetectionTests(unittest.TestCase):
         self.assertEqual(len(msgs), 1 + 3)
 
 
+RC_ASIA = {"AwardID": 7001, "OfferID": 7101, "PartnerName": "Royal Caribbean",
+           "Title": "6 Night Taiwan & Japan", "LocationName": "", "Price": 380000, "Quantity": 5,
+           "ShortDescription": "Enjoy a sailing for 2 on Royal Caribbeans Spectrum of the Seas out of "
+                               "Hong Kong, China for 6 nights sailing on 02/02/2027 in an interior cabin."}
+RC_USA = dict(RC_ASIA, AwardID=7002, OfferID=7102, Title="7 Night Western Caribbean",
+              ShortDescription="Enjoy a sailing for 2 on Royal Caribbeans Wonder of the Seas out of "
+                               "Port Canaveral, Florida for 7 nights sailing on 02/14/2027.")
+
+
+class FilterTests(unittest.TestCase):
+    """Default filter: Royal Caribbean, real 'N Night' cruises, departing Asia."""
+
+    def harness(self):
+        return Harness(only_cruise_line="Royal Caribbean", only_full_cruises=True, only_departure_region="asia")
+
+    def test_only_rc_asia_cruises_alert(self):
+        h = self.harness()
+        _, msgs = h.run()
+        self.assertIn("5</b> matching", msgs[0])          # the 5 sold-out Spectrum of the Seas cruises
+        self.assertNotIn("Free Play", msgs[0])
+        self.assertNotIn("NCL", msgs[0])
+        add_award(h.feed, RC_ASIA)
+        add_award(h.feed, RC_USA)
+        add_award(h.feed, dict(NEW, AwardID=7003, OfferID=7103, PartnerName="Norwegian Cruise Line",
+                               Title="Comp 5 Night Cruise"))
+        add_award(h.feed, dict(NEW, AwardID=7004, OfferID=7104, Title="$500 in FREEPLAY"))
+        _, msgs = h.run()
+        self.assertEqual(len(msgs), 1)
+        self.assertIn("6 Night Taiwan &amp; Japan", msgs[0])
+        self.assertEqual(h.run()[1], [])                   # filtered ones never resurface
+
+    def test_rc_asia_restock_alerts_but_ncl_restock_does_not(self):
+        h = self.harness()
+        h.run()
+        set_award(h.feed, 11021, Quantity=2, SnipeText=None, SnipeCategory=None)   # 8 Night Best of Asia
+        set_award(h.feed, 6713, Quantity=40)                                        # RCCL freeplay top-up
+        _, msgs = h.run()
+        self.assertEqual(len(msgs), 1)
+        self.assertIn("Best of Asia", msgs[0])
+
+    def test_unknown_port_still_alerts(self):
+        h = self.harness()
+        h.run()
+        add_award(h.feed, dict(RC_ASIA, AwardID=7005, OfferID=7105, Title="5 Night Mystery Cruise",
+                               ShortDescription="A great cruise."))
+        _, msgs = h.run()
+        self.assertEqual(len(msgs), 1)
+
+    def test_region_list(self):
+        from cruisewatch.filters import region_matches
+        for port in ("Hong Kong, China", "Singapore", "Shanghai (Baoshan), China", "Tokyo (Yokohama), Japan",
+                     "Keelung, Taiwan", "Busan, South Korea", "Laem Chabang (Bangkok), Thailand"):
+            self.assertTrue(region_matches(port, "asia"), port)
+        for port in ("Port Canaveral, Florida", "Miami, FL", "Barcelona, Spain", "Sydney, Australia"):
+            self.assertFalse(region_matches(port, "asia"), port)
+
+
 class ExtractionTests(unittest.TestCase):
     def test_real_ncl_reward(self):
         rec = {"title": "Comp 7 Day Mexican Cruise", "location": "Port: San Diego, California"}
@@ -342,7 +401,7 @@ class MessageAndStateTests(unittest.TestCase):
         self.assertEqual(counts, {
             "Check 1": 1, "Check 2": 0, "Check 3": 1, "Check 4": 0, "Check 5": 1, "Check 6": 0,
             "Check 7": 0, "Check 8": 0, "Check 9": 0, "Check 10": 0, "Check 11": 1, "Check 12": 1,
-            "Check 13": 1, "Check 14": 1,
+            "Check 13": 1, "Check 14": 1, "Check 15": 0,
         })
 
 

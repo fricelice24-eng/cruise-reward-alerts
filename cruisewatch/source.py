@@ -22,7 +22,7 @@ USER_AGENT = (
 )
 
 CRUISE_KEYWORDS = re.compile(
-    r"cruise|sailing|\bship\b|of the seas|royal caribbean|\bncl\b|norwegian|carnival|"
+    r"cruise|sailing|\bship\b|of the seas|royal caribbean|\bncl\b|norwegian|carnival cruise|"
     r"celebrity|princess|\bmsc\b|virgin voyages|holland america|disney cruise|cunard|"
     r"oceania|regent seven|silversea|seabourn|viking|windstar|azamara|explora|"
     r"costa cruise|p&o|resorts world cruises|genting|star cruises|casino royale",

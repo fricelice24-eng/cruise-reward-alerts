@@ -31,7 +31,7 @@ SHIP_PATTERNS = [
 ]
 NOT_SHIPS = re.compile(
     r"^(Norwegian (Cruise.*|Line|In|Reward|Rewards|Ports?|Ships?)|Celebrity Cruises?.*|Carnival Cruise.*|MSC Cruises?.*|"
-    r"Royal Caribbean|The|A|An)$",
+    r"Royal Caribbean.*|The|A|An)$",
     re.IGNORECASE,
 )
 

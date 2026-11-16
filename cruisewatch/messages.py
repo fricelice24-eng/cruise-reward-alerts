@@ -116,25 +116,27 @@ def status_list(records: Iterable[dict]) -> list[str]:
     return lines
 
 
-def startup_message(records: list[dict], now: datetime, tz: str) -> str:
+def startup_message(records: list[dict], now: datetime, tz: str, filt: str = "", total: int = 0) -> str:
     avail = sum(1 for r in records if r.get("status") == "available")
     lines = [
         "🛳 <b>Cruise reward monitor is live</b>",
-        f"Baseline saved: <b>{len(records)}</b> cruise rewards in the myVIP store, "
-        f"<b>{avail}</b> purchasable right now. From here on you'll be alerted to new "
-        "rewards and restocks only.",
+        f"Watching: <b>{e(filt or 'all cruise rewards')}</b>",
+        f"<b>{len(records)}</b> matching rewards in the store now ({avail} purchasable)"
+        + (f", out of {total} cruise rewards tracked" if total else "") + ". "
+        "You'll be alerted to new ones and restocks only.",
         "",
-    ] + status_list(records) + [f"\n<i>{e(_local(now, tz))}</i>"]
+    ] + (status_list(records) or ["(none right now)"]) + [f"\n<i>{e(_local(now, tz))}</i>"]
     return "\n".join(lines)
 
 
-def daily_message(records: list[dict], now: datetime, tz: str, recent_events: list[dict]) -> str:
+def daily_message(records: list[dict], now: datetime, tz: str, recent_events: list[dict], filt: str = "") -> str:
     active = [r for r in records if r.get("status") != "removed"]
     avail = sum(1 for r in active if r.get("status") == "available")
     alerts = sum(1 for ev in recent_events if ev.get("alerted"))
     lines = [
         "🩺 <b>Daily check-in: monitor is running</b>",
-        f"{len(active)} cruise rewards listed, {avail} purchasable. Alerts sent in the last 24h: {alerts}.",
+        (f"Watching: {e(filt)}\n" if filt else "")
+        + f"{len(active)} matching rewards listed, {avail} purchasable. Alerts sent in the last 24h: {alerts}.",
         "",
-    ] + status_list(active) + [f"\n<i>{e(_local(now, tz))}</i>"]
+    ] + (status_list(active) or ["(none right now)"]) + [f"\n<i>{e(_local(now, tz))}</i>"]
     return "\n".join(lines)

@@ -9,6 +9,7 @@ from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
 from . import messages
+from .filters import describe, wanted
 from .config import CRUISE_DESTINATION_ID, Config
 from .detect import AVAILABLE, REMOVED, Event, commit_event, diff
 from .extract import enrich
@@ -156,7 +157,9 @@ class Monitor:
                 _ensure_detail(rec, self.fetcher, now)
             self.note(f"First run: baseline of {len(records)} rewards saved")
             if cfg.first_run_summary and primary_count:
-                self.tg.send(messages.startup_message(records, now, cfg.timezone), silent=True)
+                matching = [r for r in records if wanted(r, cfg)]
+                self.tg.send(messages.startup_message(matching, now, cfg.timezone, describe(cfg), len(records)),
+                             silent=True)
         else:
             self._deliver(state, result.events, now)
 
@@ -187,6 +190,14 @@ class Monitor:
             return
         for ev in alertable:
             _ensure_detail(ev.record, self.fetcher, now, force=ev.type in ("NEW", "RETURNED"))
+        filtered_out = [e for e in alertable if not wanted(e.record, cfg)]
+        for ev in filtered_out:
+            ev.alert = False
+            commit_event(state, ev, now, delivered=True)
+            self.note(f"(filtered out, no alert) {ev.summary()}")
+        alertable = [e for e in alertable if e.alert]
+        if not alertable:
+            return
 
         if len(alertable) > cfg.max_individual_alerts:
             # Mass change (e.g. a big store refresh): one digest, then the
@@ -231,8 +242,8 @@ class Monitor:
                     recent.append(ev)
             except (KeyError, ValueError):
                 continue
-        records = list(state["rewards"].values())
-        if self.tg.send(messages.daily_message(records, now, cfg.timezone, recent), silent=True):
+        records = [r for r in state["rewards"].values() if wanted(r, cfg)]
+        if self.tg.send(messages.daily_message(records, now, cfg.timezone, recent, describe(cfg)), silent=True):
             state["last_daily_summary"] = today
 
 
