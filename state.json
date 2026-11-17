@@ -116,6 +116,16 @@
    "quantity": 1,
    "title": "4 Night Chan May Cruise",
    "type": "RESTOCK"
+  },
+  {
+   "alerted": false,
+   "at": "2026-11-17T13:17:10+00:00",
+   "award_id": "11024",
+   "partner": "Royal Caribbean",
+   "price": 230000,
+   "quantity": 0,
+   "title": "4 Night Chan May Cruise",
+   "type": "SOLD_OUT"
   }
  ],
  "health": {
@@ -127,7 +137,7 @@
  },
  "initialized_at": "2026-11-16T08:53:33+00:00",
  "last_daily_summary": "2026-11-17",
- "last_sweep_at": "2026-11-17T12:11:15+00:00",
+ "last_sweep_at": "2026-11-17T13:17:10+00:00",
  "rewards": {
   "11020": {
    "award_id": "11020",
@@ -143,7 +153,7 @@
     "sailing": "11/01/2026",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-17T12:11:15.6806757+00:00",
+   "expires": "2026-12-17T13:17:10.9589029+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 0,
@@ -176,7 +186,7 @@
     "sailing": "1/03/2027",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-17T12:11:15.6806757+00:00",
+   "expires": "2026-12-17T13:17:10.9589029+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 0,
@@ -209,7 +219,7 @@
     "sailing": "12/20/2026",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-17T12:11:15.6806757+00:00",
+   "expires": "2026-12-17T13:17:10.9589029+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 0,
@@ -242,7 +252,7 @@
     "sailing": "12/13/2026",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-17T12:11:15.6806757+00:00",
+   "expires": "2026-12-17T13:17:10.9589029+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 0,
@@ -275,7 +285,7 @@
     "sailing": "11/16/2026",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-17T12:11:15.6806757+00:00",
+   "expires": "2026-12-17T13:17:10.9589029+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 1,
@@ -285,10 +295,10 @@
    "partner": "Royal Caribbean",
    "premium": false,
    "price": 230000,
-   "quantity": 1,
+   "quantity": 0,
    "short_description": null,
-   "snipe": "1 left",
-   "status": "available",
+   "snipe": "sold out",
+   "status": "sold_out",
    "strike_price": null,
    "subtitle": "Royal Caribbean",
    "title": "4 Night Chan May Cruise",
@@ -473,7 +483,7 @@
     "sailing": "Sailings departing by November 30, 2027",
     "ship": "Any ship (excluding Pride of America)"
    },
-   "expires": "2026-12-17T12:11:15.6806757+00:00",
+   "expires": "2026-12-17T13:17:10.9589029+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Various Ports",
    "missing_checks": 0,
@@ -505,7 +515,7 @@
     "sailing": "Sailings departing by November 30, 2027",
     "ship": "Any ship (excluding Pride of America)"
    },
-   "expires": "2026-12-17T12:11:15.6806757+00:00",
+   "expires": "2026-12-17T13:17:10.9589029+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Various Ports",
    "missing_checks": 0,
@@ -537,7 +547,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-17T12:11:15.6806757+00:00",
+   "expires": "2026-12-17T13:17:10.9589029+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 40,
@@ -570,7 +580,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-17T12:11:15.6806757+00:00",
+   "expires": "2026-12-17T13:17:10.9589029+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 50,
@@ -580,7 +590,7 @@
    "partner": "Royal Caribbean",
    "premium": true,
    "price": 35000,
-   "quantity": 45,
+   "quantity": 44,
    "short_description": null,
    "snipe": null,
    "status": "available",
@@ -603,7 +613,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-17T12:11:15.6806757+00:00",
+   "expires": "2026-12-17T13:17:10.9589029+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 60,
@@ -636,7 +646,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-17T12:11:15.6806757+00:00",
+   "expires": "2026-12-17T13:17:10.9589029+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 25,
@@ -669,7 +679,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-17T12:11:15.6806757+00:00",
+   "expires": "2026-12-17T13:17:10.9589029+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 60,
@@ -702,7 +712,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-17T12:11:15.6806757+00:00",
+   "expires": "2026-12-17T13:17:10.9589029+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 60,
