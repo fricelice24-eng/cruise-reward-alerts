@@ -253,7 +253,7 @@
     "sailing": "11/01/2026",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-17T22:55:31.9535271+00:00",
+   "expires": "2026-12-17T23:39:44.0425322+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 0,
@@ -286,7 +286,7 @@
     "sailing": "1/03/2027",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-17T22:55:31.9535271+00:00",
+   "expires": "2026-12-17T23:39:44.0425322+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 0,
@@ -319,7 +319,7 @@
     "sailing": "12/20/2026",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-17T22:55:31.9535271+00:00",
+   "expires": "2026-12-17T23:39:44.0425322+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 0,
@@ -352,7 +352,7 @@
     "sailing": "12/13/2026",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-17T22:55:31.9535271+00:00",
+   "expires": "2026-12-17T23:39:44.0425322+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 0,
@@ -385,7 +385,7 @@
     "sailing": "11/16/2026",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-17T22:55:31.9535271+00:00",
+   "expires": "2026-12-17T23:39:44.0425322+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 1,
@@ -583,7 +583,7 @@
     "sailing": "Sailings departing by November 30, 2027",
     "ship": "Any ship (excluding Pride of America)"
    },
-   "expires": "2026-12-17T22:55:31.9535271+00:00",
+   "expires": "2026-12-17T23:39:44.0425322+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Various Ports",
    "missing_checks": 0,
@@ -615,7 +615,7 @@
     "sailing": "Sailings departing by November 30, 2027",
     "ship": "Any ship (excluding Pride of America)"
    },
-   "expires": "2026-12-17T22:55:31.9535271+00:00",
+   "expires": "2026-12-17T23:39:44.0425322+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Various Ports",
    "missing_checks": 0,
@@ -647,7 +647,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-17T22:55:31.9535271+00:00",
+   "expires": "2026-12-17T23:39:44.0425322+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 40,
@@ -657,7 +657,7 @@
    "partner": "Royal Caribbean",
    "premium": false,
    "price": 30000,
-   "quantity": 40,
+   "quantity": 39,
    "short_description": null,
    "snipe": null,
    "status": "available",
@@ -680,7 +680,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-17T22:55:31.9535271+00:00",
+   "expires": "2026-12-17T23:39:44.0425322+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 50,
@@ -713,7 +713,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-17T22:55:31.9535271+00:00",
+   "expires": "2026-12-17T23:39:44.0425322+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 60,
@@ -746,7 +746,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-17T22:55:33.578552+00:00",
+   "expires": "2026-12-17T23:39:44.0425322+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 25,
@@ -756,7 +756,7 @@
    "partner": "Royal Caribbean",
    "premium": false,
    "price": 140000,
-   "quantity": 20,
+   "quantity": 19,
    "short_description": null,
    "snipe": null,
    "status": "available",
@@ -779,7 +779,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-17T22:55:31.9535271+00:00",
+   "expires": "2026-12-17T23:39:44.0425322+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 60,
@@ -812,7 +812,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-17T22:55:31.9535271+00:00",
+   "expires": "2026-12-17T23:39:44.0425322+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 60,
