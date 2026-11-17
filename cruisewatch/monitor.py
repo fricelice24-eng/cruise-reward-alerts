@@ -9,11 +9,11 @@ from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
 from . import messages
-from .filters import describe, wanted
+from .filters import already_sailed, describe, obtainable, wanted
 from .config import CRUISE_DESTINATION_ID, Config
 from .detect import AVAILABLE, REMOVED, Event, commit_event, diff
 from .extract import enrich
-from .source import FetchError, Fetcher, fetch_detail, fetch_rewards, http_get_json
+from .source import FetchError, Fetcher, fetch_detail, fetch_rewards, http_get_json, is_available
 from .state import load_state, save_state
 from .telegram import Telegram
 
@@ -157,7 +157,7 @@ class Monitor:
                 _ensure_detail(rec, self.fetcher, now)
             self.note(f"First run: baseline of {len(records)} rewards saved")
             if cfg.first_run_summary and primary_count:
-                matching = [r for r in records if wanted(r, cfg)]
+                matching = [r for r in records if wanted(r, cfg) and not already_sailed(r, now)]
                 self.tg.send(messages.startup_message(matching, now, cfg.timezone, describe(cfg), len(records)),
                              silent=True)
         else:
@@ -189,12 +189,20 @@ class Monitor:
         if not alertable:
             return
         for ev in alertable:
-            _ensure_detail(ev.record, self.fetcher, now, force=ev.type in ("NEW", "RETURNED"))
+            self._live_check(ev.record, now)
         filtered_out = [e for e in alertable if not wanted(e.record, cfg)]
         for ev in filtered_out:
             ev.alert = False
             commit_event(state, ev, now, delivered=True)
             self.note(f"(filtered out, no alert) {ev.summary()}")
+        alertable = [e for e in alertable if e.alert]
+        # Only tell you about rewards you could actually buy and use right now.
+        for ev in alertable:
+            ok, why = obtainable(ev.record, cfg, now)
+            if not ok:
+                ev.alert = False
+                commit_event(state, ev, now, delivered=True)
+                self.note(f"(not obtainable: {why}, no alert) {ev.summary()}")
         alertable = [e for e in alertable if e.alert]
         if not alertable:
             return
@@ -216,6 +224,28 @@ class Monitor:
                               silent=ev.type in ("SOLD_OUT", "PRICE"))
             commit_event(state, ev, now, delivered=ok)
             self.note(f"{'ALERTED' if ok else 'ALERT FAILED (will retry)'} {ev.summary()}")
+
+    def _live_check(self, rec: dict, now: datetime) -> None:
+        """Re-read the reward's own page right before alerting.
+
+        The page is the store's live view: its quantity and sold-out badge
+        override the feed, and its text is used for ship / port / dates.
+        """
+        raw = fetch_detail(rec.get("offer_id"), self.fetcher)
+        if raw is None:
+            _ensure_detail(rec, self.fetcher, now)
+            return
+        q = raw.get("Quantity")
+        if isinstance(q, (int, float)) and not isinstance(q, bool):
+            rec["quantity"] = q
+        if not is_available(raw.get("Quantity", rec.get("quantity")), raw.get("SnipeText"), raw.get("SnipeCategory")):
+            rec["status"] = "sold_out"
+        if raw.get("ExpireTime"):
+            rec["expires"] = raw["ExpireTime"]
+        info = enrich(rec, raw)
+        info["_offer_id"] = rec.get("offer_id")
+        info["_fetched_at"] = now.astimezone(timezone.utc).isoformat(timespec="seconds")
+        rec["detail"] = info
 
     def _maybe_daily(self, state: dict, now: datetime) -> None:
         cfg = self.config
@@ -242,7 +272,7 @@ class Monitor:
                     recent.append(ev)
             except (KeyError, ValueError):
                 continue
-        records = [r for r in state["rewards"].values() if wanted(r, cfg)]
+        records = [r for r in state["rewards"].values() if wanted(r, cfg) and not already_sailed(r, now)]
         if self.tg.send(messages.daily_message(records, now, cfg.timezone, recent, describe(cfg)), silent=True):
             state["last_daily_summary"] = today
 

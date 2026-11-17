@@ -81,6 +81,7 @@ class Config:
     only_cruise_line: str = "Royal Caribbean"
     only_full_cruises: bool = True
     only_departure_region: str = "asia"
+    min_days_before_sailing: int = 3
     extra: dict = field(default_factory=dict)
 
     @classmethod
@@ -107,4 +108,5 @@ class Config:
             only_cruise_line=_line(os.environ.get("ONLY_CRUISE_LINE")),
             only_full_cruises=_bool("ONLY_FULL_CRUISES", True),
             only_departure_region=(os.environ.get("ONLY_DEPARTURE_REGION") or "asia").strip().lower(),
+            min_days_before_sailing=_int("MIN_DAYS_BEFORE_SAILING", 3),
         )

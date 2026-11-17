@@ -101,7 +101,7 @@ def scenario():
     for lane in feed["Lanes"]:
         if lane["Meta"]["Title"] == "All Rewards in Cruise":
             lane["Awards"].append(gone)
-    yield "Check 14: new reward already sold out when first seen", copy.deepcopy(feed)
+    yield "Check 14: new reward already sold out when first seen (not obtainable: no alert)", copy.deepcopy(feed)
 
     # Outside your filter: a Florida cruise, an NCL cruise and a free-play top-up -> no messages.
     usa = dict(NEW_CRUISE, AwardID=99003, OfferID=99903, Title="7 Night Western Caribbean",
@@ -120,7 +120,7 @@ def scenario():
 def run_demo(send_to: Telegram | None = None, out=print) -> list[tuple[str, list[str]]]:
     details = _load("details.json")
     details[str(NEW_CRUISE["OfferID"])] = NEW_CRUISE_DETAIL
-    clock = [datetime(2026, 11, 16, 2, 0, tzinfo=timezone.utc)]
+    clock = [datetime(2026, 10, 20, 2, 0, tzinfo=timezone.utc)]
     current_feed: dict = {}
 
     def fetcher(url: str):

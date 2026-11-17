@@ -218,6 +218,7 @@ Repo → **Settings → Secrets and variables → Actions → Variables tab → 
 | `ONLY_CRUISE_LINE` | `Royal Caribbean` | Only alert for this cruise line; `any` = all cruise lines |
 | `ONLY_FULL_CRUISES` | `true` | Only actual "N Night" sailings; `false` also alerts on free play, credits and discounts |
 | `ONLY_DEPARTURE_REGION` | `asia` | Only sailings from Asian ports (Hong Kong, Shanghai, Singapore, Japan, Taiwan, Korea, SE Asia…); `any` = anywhere. If the port can't be read, you're alerted anyway |
+| `MIN_DAYS_BEFORE_SAILING` | `3` | Don't alert for a cruise that sails sooner than this many days from now (or has already sailed) |
 | `ALERT_NEW` | `true` | Alert on brand-new rewards |
 | `ALERT_RESTOCK` | `true` | Alert when sold-out or pulled rewards come back |
 | `ALERT_QUANTITY_INCREASE` | `true` | Alert when inventory is topped up on a reward that's still for sale |
@@ -235,6 +236,7 @@ Secrets: `TELEGRAM_BOT_TOKEN` (required), `TELEGRAM_CHAT_ID` (required), `HEALTH
 
 ## Reliability details
 
+* **Only obtainable rewards.** Right before alerting, the bot re-reads the reward's own page in the store (the live view). It only messages you if that page shows it in stock, the reward hasn't expired, the booking deadline hasn't passed, and the sailing date is at least 3 days away. Anything else is recorded silently. A new reward that's already sold out isn't sent; you'll hear about it if it comes back in stock.
 * **No repeat alerts.** Alerts fire on a *change of state* (new → seen, sold out → available). The new state is saved only after Telegram confirms delivery. An unchanged reward never alerts twice, and if Telegram is unreachable the alert is retried on the next check rather than lost.
 * **No false restocks from API blips.** A reward missing from one response isn't treated as removed. It must be missing for 2 consecutive checks. An empty Cruise feed is never treated as "everything was removed". The bot warns you instead and touches nothing.
 * **The first run is a baseline**, not a flood of alerts. Newly swept categories are also baselined silently.
@@ -276,7 +278,7 @@ Ongoing cost: **$0**. No servers, no paid plans.
 Requires Python 3.10+ and no extra packages.
 
 ```bash
-python3 -m unittest discover -s tests -v   # 31 tests
+python3 -m unittest discover -s tests -v   # 36 tests
 python3 -m cruisewatch demo                # offline simulation of new/restock/outage detection
 TELEGRAM_BOT_TOKEN=... TELEGRAM_CHAT_ID=... python3 -m cruisewatch test --live
 python3 -m cruisewatch check               # one real monitoring pass (state in data/state.json)

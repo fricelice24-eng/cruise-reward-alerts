@@ -47,6 +47,7 @@ jobs:
           ONLY_CRUISE_LINE: ${{ vars.ONLY_CRUISE_LINE }}
           ONLY_FULL_CRUISES: ${{ vars.ONLY_FULL_CRUISES }}
           ONLY_DEPARTURE_REGION: ${{ vars.ONLY_DEPARTURE_REGION }}
+          MIN_DAYS_BEFORE_SAILING: ${{ vars.MIN_DAYS_BEFORE_SAILING }}
         run: python3 -m cruisewatch check
 
       - name: Save state

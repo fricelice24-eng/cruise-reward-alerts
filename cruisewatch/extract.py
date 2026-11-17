@@ -170,8 +170,8 @@ def enrich(reward: dict, detail: dict | None) -> dict:
     location = reward.get("location") or ""
 
     structured_ship = [
-        s for s in (clean_html(detail.get("OutletName")), clean_html(detail.get("SubTitle2")),
-                    reward.get("outlet")) if s and find_ships(s)
+        name for s in (clean_html(detail.get("OutletName")), clean_html(detail.get("SubTitle2")),
+                       reward.get("outlet")) if s for name in find_ships(s)
     ]
     excluded = _dedupe(re.findall(r"[Nn]ot valid on ([A-Z][A-Za-z ]+?) sailings", terms))
     ships = [

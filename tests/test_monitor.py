@@ -59,7 +59,7 @@ class Harness:
         self.feed = copy.deepcopy(FEED)
         self.other = {"Lanes": []}
         self.error = None
-        self.now = datetime(2026, 11, 16, 3, 0, tzinfo=timezone.utc)
+        self.now = datetime(2026, 10, 20, 3, 0, tzinfo=timezone.utc)
         self.cfg = Config(state_file=Path(self.tmp.name) / "state.json", daily_summary_hour=-1,
                           sweep_destinations=(1,), dry_run=True,
                           **{"only_cruise_line": "", "only_full_cruises": False,
@@ -145,13 +145,49 @@ class DetectionTests(unittest.TestCase):
         _, again = h.run()
         self.assertEqual(again, [])
 
-    def test_new_reward_already_sold_out_still_alerts(self):
+    def test_new_reward_already_sold_out_is_not_sent_but_later_restock_is(self):
         h = Harness()
         h.run()
         add_award(h.feed, dict(NEW, Quantity=0, SnipeText="sold out", SnipeCategory="SoldOut"))
+        self.assertEqual(h.run()[1], [])
+        set_award(h.feed, 5001, Quantity=2, SnipeText=None, SnipeCategory=None)
         _, msgs = h.run()
         self.assertEqual(len(msgs), 1)
-        self.assertIn("already sold out", msgs[0])
+        self.assertIn("BACK IN STOCK", msgs[0])
+
+    def test_restock_after_sailing_date_is_not_sent(self):
+        """The 17 Nov 2026 false alert: Chan May (sails 11/16/2026) showed 1 left after it sailed."""
+        h = Harness()
+        h.now = datetime(2026, 11, 17, 3, 15, tzinfo=timezone.utc)
+        h.run()
+        set_award(h.feed, 11024, Quantity=1, SnipeText="1 left", SnipeCategory=None)
+        self.assertEqual(h.run()[1], [])
+
+    def test_restock_too_close_to_sailing_is_not_sent(self):
+        h = Harness()
+        h.now = datetime(2026, 11, 14, 3, 0, tzinfo=timezone.utc)   # 2 days before 11/16 sailing
+        h.run()
+        set_award(h.feed, 11024, Quantity=1, SnipeText=None, SnipeCategory=None)
+        self.assertEqual(h.run()[1], [])
+
+    def test_live_page_overrides_stale_feed(self):
+        h = Harness()
+        h.run()
+        set_award(h.feed, 11024, Quantity=1, SnipeText=None, SnipeCategory=None)
+        DETAILS["40961"]["Quantity"], DETAILS["40961"]["SnipeCategory"] = 0, "SoldOut"
+        try:
+            self.assertEqual(h.run()[1], [])          # page says sold out: no alert
+            self.assertEqual(h.state()["rewards"]["11024"]["status"], "sold_out")
+        finally:
+            DETAILS["40961"].pop("Quantity"); DETAILS["40961"].pop("SnipeCategory")
+        _, msgs = h.run()                              # page now agrees it's available
+        self.assertEqual(len(msgs), 1)
+
+    def test_expired_reward_is_not_sent(self):
+        h = Harness()
+        h.run()
+        add_award(h.feed, dict(NEW, ExpireTime="2026-10-01T00:00:00+00:00"))
+        self.assertEqual(h.run()[1], [])
 
     def test_restock_alerts_once_and_sold_out_is_silent(self):
         h = Harness()
@@ -343,6 +379,17 @@ class FilterTests(unittest.TestCase):
             self.assertFalse(region_matches(port, "asia"), port)
 
 
+class DateTests(unittest.TestCase):
+    def test_parse(self):
+        from datetime import date
+        from cruisewatch.filters import parse_dates
+        self.assertEqual(parse_dates("11/16/2026"), [date(2026, 11, 16)])
+        self.assertEqual(max(parse_dates("January 2 – February 6, 2027")), date(2027, 2, 6))
+        self.assertEqual(min(parse_dates("January 2 – February 6, 2027")), date(2027, 1, 2))
+        self.assertEqual(parse_dates("Sailings departing by November 30, 2027"), [date(2027, 11, 30)])
+        self.assertEqual(parse_dates(None), [])
+
+
 class ExtractionTests(unittest.TestCase):
     def test_real_ncl_reward(self):
         rec = {"title": "Comp 7 Day Mexican Cruise", "location": "Port: San Diego, California"}
@@ -401,7 +448,7 @@ class MessageAndStateTests(unittest.TestCase):
         self.assertEqual(counts, {
             "Check 1": 1, "Check 2": 0, "Check 3": 1, "Check 4": 0, "Check 5": 1, "Check 6": 0,
             "Check 7": 0, "Check 8": 0, "Check 9": 0, "Check 10": 0, "Check 11": 1, "Check 12": 1,
-            "Check 13": 1, "Check 14": 1, "Check 15": 0,
+            "Check 13": 1, "Check 14": 0, "Check 15": 0,
         })
 
 
