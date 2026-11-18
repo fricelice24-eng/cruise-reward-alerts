@@ -377,7 +377,7 @@
  },
  "initialized_at": "2026-11-16T08:53:33+00:00",
  "last_daily_summary": "2026-11-18",
- "last_sweep_at": "2026-11-18T21:15:31+00:00",
+ "last_sweep_at": "2026-11-18T22:53:17+00:00",
  "rewards": {
   "11020": {
    "award_id": "11020",
@@ -393,7 +393,7 @@
     "sailing": "11/01/2026",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-18T22:04:07.5986166+00:00",
+   "expires": "2026-12-18T22:53:17.7133952+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 0,
@@ -426,7 +426,7 @@
     "sailing": "1/03/2027",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-18T22:04:07.5986166+00:00",
+   "expires": "2026-12-18T22:53:17.7133952+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 0,
@@ -459,7 +459,7 @@
     "sailing": "12/20/2026",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-18T22:04:07.5986166+00:00",
+   "expires": "2026-12-18T22:53:17.7133952+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 0,
@@ -492,7 +492,7 @@
     "sailing": "12/13/2026",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-18T22:04:07.5986166+00:00",
+   "expires": "2026-12-18T22:53:17.7133952+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 0,
@@ -525,7 +525,7 @@
     "sailing": "11/16/2026",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-18T22:04:07.5986166+00:00",
+   "expires": "2026-12-18T22:53:17.7133952+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 1,
@@ -601,7 +601,7 @@
    "partner": "Norwegian Cruise Line",
    "premium": false,
    "price": 500000,
-   "quantity": 100,
+   "quantity": 99,
    "short_description": null,
    "snipe": "NEW REWARD!",
    "status": "available",
@@ -700,7 +700,7 @@
    "partner": "Norwegian Cruise Line",
    "premium": false,
    "price": 500000,
-   "quantity": 90,
+   "quantity": 89,
    "short_description": null,
    "snipe": "NEW REWARD!",
    "status": "available",
@@ -723,7 +723,7 @@
     "sailing": "Sailings departing by November 30, 2027",
     "ship": "Any ship (excluding Pride of America)"
    },
-   "expires": "2026-12-18T22:04:07.5986166+00:00",
+   "expires": "2026-12-18T22:53:17.7133952+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Various Ports",
    "missing_checks": 0,
@@ -755,7 +755,7 @@
     "sailing": "Sailings departing by November 30, 2027",
     "ship": "Any ship (excluding Pride of America)"
    },
-   "expires": "2026-12-18T22:04:07.5986166+00:00",
+   "expires": "2026-12-18T22:53:17.7133952+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Various Ports",
    "missing_checks": 0,
@@ -820,7 +820,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-18T22:04:07.5986166+00:00",
+   "expires": "2026-12-18T22:53:17.7133952+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 50,
@@ -886,7 +886,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-18T22:04:07.5986166+00:00",
+   "expires": "2026-12-18T22:53:17.7133952+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 25,
@@ -919,7 +919,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-18T22:04:07.5986166+00:00",
+   "expires": "2026-12-18T22:53:17.7133952+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 60,
