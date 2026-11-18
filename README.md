@@ -236,7 +236,7 @@ Secrets: `TELEGRAM_BOT_TOKEN` (required), `TELEGRAM_CHAT_ID` (required), `HEALTH
 
 ## Reliability details
 
-* **Only obtainable rewards.** Right before alerting, the bot re-reads the reward's own page in the store (the live view). It only messages you if that page shows it in stock, the reward hasn't expired, the booking deadline hasn't passed, and the sailing date is at least 3 days away. Anything else is recorded silently. A new reward that's already sold out isn't sent; you'll hear about it if it comes back in stock.
+* **Only obtainable rewards.** Right before alerting, the bot re-reads the reward's own page in the store (the live view). It only messages you if that page confirms at least 1 is purchasable (if the page can't be read or shows no quantity, nothing is sent), the reward hasn't expired, the booking deadline hasn't passed, and the sailing date is at least 3 days away. Anything else is recorded silently. A new reward that's already sold out isn't sent; you'll hear about it if it comes back in stock.
 * **No repeat alerts.** Alerts fire on a *change of state* (new → seen, sold out → available). The new state is saved only after Telegram confirms delivery. An unchanged reward never alerts twice, and if Telegram is unreachable the alert is retried on the next check rather than lost.
 * **No false restocks from API blips.** A reward missing from one response isn't treated as removed. It must be missing for 2 consecutive checks. An empty Cruise feed is never treated as "everything was removed". The bot warns you instead and touches nothing.
 * **The first run is a baseline**, not a flood of alerts. Newly swept categories are also baselined silently.
@@ -278,7 +278,7 @@ Ongoing cost: **$0**. No servers, no paid plans.
 Requires Python 3.10+ and no extra packages.
 
 ```bash
-python3 -m unittest discover -s tests -v   # 36 tests
+python3 -m unittest discover -s tests -v   # 38 tests
 python3 -m cruisewatch demo                # offline simulation of new/restock/outage detection
 TELEGRAM_BOT_TOKEN=... TELEGRAM_CHAT_ID=... python3 -m cruisewatch test --live
 python3 -m cruisewatch check               # one real monitoring pass (state in data/state.json)

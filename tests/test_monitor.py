@@ -68,10 +68,17 @@ class Harness:
 
     def fetch(self, url):
         if "/award/" in url:
-            d = DETAILS.get(url.rsplit("/", 1)[1])
-            if d is None:
+            offer = url.rsplit("/", 1)[1]
+            live = next((a for lane in self.feed.get("Lanes", []) + self.other.get("Lanes", [])
+                         for a in lane["Awards"] if str(a.get("OfferID")) == offer), None)
+            d = DETAILS.get(offer)
+            if d is None and live is None:
                 raise FetchError("404")
-            return d
+            # Like the real API, the page carries the live quantity/badge
+            # (a test can override them by setting them on DETAILS).
+            page = {k: live.get(k) for k in ("Quantity", "SnipeText", "SnipeCategory", "ExpireTime")} if live else {}
+            page.update(d or {})
+            return page
         if self.error:
             raise self.error
         if url.endswith("/destination/8"):
@@ -168,6 +175,27 @@ class DetectionTests(unittest.TestCase):
         h.now = datetime(2026, 11, 14, 3, 0, tzinfo=timezone.utc)   # 2 days before 11/16 sailing
         h.run()
         set_award(h.feed, 11024, Quantity=1, SnipeText=None, SnipeCategory=None)
+        self.assertEqual(h.run()[1], [])
+
+    def test_page_without_quantity_is_not_sent(self):
+        h = Harness()
+        h.run()
+        add_award(h.feed, NEW)
+        real_fetch = h.fetch
+        h.fetch = lambda url: ({k: v for k, v in real_fetch(url).items() if k != "Quantity"}
+                               if "/award/" in url else real_fetch(url))
+        self.assertEqual(h.run()[1], [])
+
+    def test_page_unreachable_is_not_sent(self):
+        h = Harness()
+        h.run()
+        add_award(h.feed, NEW)
+        real_fetch = h.fetch
+        def fetch(url):
+            if "/award/" in url:
+                raise FetchError("timeout")
+            return real_fetch(url)
+        h.fetch = fetch
         self.assertEqual(h.run()[1], [])
 
     def test_live_page_overrides_stale_feed(self):

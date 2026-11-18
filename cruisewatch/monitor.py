@@ -188,8 +188,7 @@ class Monitor:
                 self.note(f"(no alert, disabled) {ev.summary()}")
         if not alertable:
             return
-        for ev in alertable:
-            self._live_check(ev.record, now)
+        verified = {ev.award_id: self._live_check(ev.record, now) for ev in alertable}
         filtered_out = [e for e in alertable if not wanted(e.record, cfg)]
         for ev in filtered_out:
             ev.alert = False
@@ -199,6 +198,8 @@ class Monitor:
         # Only tell you about rewards you could actually buy and use right now.
         for ev in alertable:
             ok, why = obtainable(ev.record, cfg, now)
+            if ok and not verified.get(ev.award_id):
+                ok, why = False, "store page did not confirm at least 1 purchasable"
             if not ok:
                 ev.alert = False
                 commit_event(state, ev, now, delivered=True)
@@ -225,7 +226,7 @@ class Monitor:
             commit_event(state, ev, now, delivered=ok)
             self.note(f"{'ALERTED' if ok else 'ALERT FAILED (will retry)'} {ev.summary()}")
 
-    def _live_check(self, rec: dict, now: datetime) -> None:
+    def _live_check(self, rec: dict, now: datetime) -> bool:
         """Re-read the reward's own page right before alerting.
 
         The page is the store's live view: its quantity and sold-out badge
@@ -234,7 +235,7 @@ class Monitor:
         raw = fetch_detail(rec.get("offer_id"), self.fetcher)
         if raw is None:
             _ensure_detail(rec, self.fetcher, now)
-            return
+            return False
         q = raw.get("Quantity")
         if isinstance(q, (int, float)) and not isinstance(q, bool):
             rec["quantity"] = q
@@ -246,6 +247,9 @@ class Monitor:
         info["_offer_id"] = rec.get("offer_id")
         info["_fetched_at"] = now.astimezone(timezone.utc).isoformat(timespec="seconds")
         rec["detail"] = info
+        live_q = raw.get("Quantity")
+        return (rec.get("status") == "available" and isinstance(live_q, (int, float))
+                and not isinstance(live_q, bool) and live_q >= 1)
 
     def _maybe_daily(self, state: dict, now: datetime) -> None:
         cfg = self.config

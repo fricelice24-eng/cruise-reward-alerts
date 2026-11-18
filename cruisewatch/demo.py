@@ -126,9 +126,14 @@ def run_demo(send_to: Telegram | None = None, out=print) -> list[tuple[str, list
     def fetcher(url: str):
         if "/award/" in url:
             offer = url.rsplit("/", 1)[1]
-            if offer in details:
-                return details[offer]
-            raise FetchError("no detail fixture")
+            feed = current_feed.get("x")
+            live = None if isinstance(feed, Exception) else next(
+                (a for lane in feed["Lanes"] for a in lane["Awards"] if str(a.get("OfferID")) == offer), None)
+            if offer not in details and live is None:
+                raise FetchError("no detail fixture")
+            page = {k: live.get(k) for k in ("Quantity", "SnipeText", "SnipeCategory")} if live else {}
+            page.update(details.get(offer, {}))
+            return page
         if url.endswith("/destination/8"):
             if isinstance(current_feed.get("x"), Exception):
                 raise current_feed["x"]
