@@ -366,6 +366,16 @@
    "quantity": 47,
    "title": "$100 in Onboard Credit",
    "type": "QTY_UP"
+  },
+  {
+   "alerted": false,
+   "at": "2026-11-18T23:37:36+00:00",
+   "award_id": "11239",
+   "partner": "Norwegian Cruise Line",
+   "price": 500000,
+   "quantity": 90,
+   "title": "Comp 7 Day NCL Cruise",
+   "type": "QTY_UP"
   }
  ],
  "health": {
@@ -393,7 +403,7 @@
     "sailing": "11/01/2026",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-18T22:53:17.7133952+00:00",
+   "expires": "2026-12-18T23:37:36.895737+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 0,
@@ -426,7 +436,7 @@
     "sailing": "1/03/2027",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-18T22:53:17.7133952+00:00",
+   "expires": "2026-12-18T23:37:36.895737+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 0,
@@ -459,7 +469,7 @@
     "sailing": "12/20/2026",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-18T22:53:17.7133952+00:00",
+   "expires": "2026-12-18T23:37:36.895737+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 0,
@@ -492,7 +502,7 @@
     "sailing": "12/13/2026",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-18T22:53:17.7133952+00:00",
+   "expires": "2026-12-18T23:37:36.9113629+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 0,
@@ -525,7 +535,7 @@
     "sailing": "11/16/2026",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-18T22:53:17.7133952+00:00",
+   "expires": "2026-12-18T23:37:36.895737+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 1,
@@ -680,7 +690,7 @@
    "award_id": "11239",
    "destination": 8,
    "detail": {
-    "_fetched_at": "2026-11-18T16:37:40+00:00",
+    "_fetched_at": "2026-11-18T23:37:36+00:00",
     "_offer_id": 41232,
     "book_by": "November 30, 2026",
     "nights": "7 days",
@@ -700,7 +710,7 @@
    "partner": "Norwegian Cruise Line",
    "premium": false,
    "price": 500000,
-   "quantity": 89,
+   "quantity": 90,
    "short_description": null,
    "snipe": "NEW REWARD!",
    "status": "available",
@@ -723,7 +733,7 @@
     "sailing": "Sailings departing by November 30, 2027",
     "ship": "Any ship (excluding Pride of America)"
    },
-   "expires": "2026-12-18T22:53:17.7133952+00:00",
+   "expires": "2026-12-18T23:37:36.895737+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Various Ports",
    "missing_checks": 0,
@@ -755,7 +765,7 @@
     "sailing": "Sailings departing by November 30, 2027",
     "ship": "Any ship (excluding Pride of America)"
    },
-   "expires": "2026-12-18T22:53:17.7133952+00:00",
+   "expires": "2026-12-18T23:37:36.895737+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Various Ports",
    "missing_checks": 0,
@@ -820,7 +830,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-18T22:53:17.7133952+00:00",
+   "expires": "2026-12-18T23:37:36.895737+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 50,
@@ -830,7 +840,7 @@
    "partner": "Royal Caribbean",
    "premium": true,
    "price": 35000,
-   "quantity": 47,
+   "quantity": 46,
    "short_description": null,
    "snipe": null,
    "status": "available",
@@ -886,7 +896,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-18T22:53:17.7133952+00:00",
+   "expires": "2026-12-18T23:37:36.895737+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 25,
@@ -919,7 +929,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-18T22:53:17.7133952+00:00",
+   "expires": "2026-12-18T23:37:36.895737+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 60,
