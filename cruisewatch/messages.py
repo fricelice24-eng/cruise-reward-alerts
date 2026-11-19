@@ -121,7 +121,7 @@ def startup_message(records: list[dict], now: datetime, tz: str, filt: str = "",
     lines = [
         "🛳 <b>Cruise reward monitor is live</b>",
         f"Watching: <b>{e(filt or 'all cruise rewards')}</b>",
-        f"<b>{len(records)}</b> matching rewards in the store now ({avail} purchasable)"
+        f"<b>{len(records)}</b> matching {'reward' if len(records) == 1 else 'rewards'} in the store now ({avail} purchasable)"
         + (f", out of {total} cruise rewards tracked" if total else "") + ". "
         "You'll be alerted to new ones and restocks only.",
         "",
@@ -131,12 +131,25 @@ def startup_message(records: list[dict], now: datetime, tz: str, filt: str = "",
 
 def daily_message(records: list[dict], now: datetime, tz: str, recent_events: list[dict], filt: str = "") -> str:
     active = [r for r in records if r.get("status") != "removed"]
+    removed = [r for r in records if r.get("status") == "removed" and _within(r.get("removed_at"), now, 7)]
     avail = sum(1 for r in active if r.get("status") == "available")
     alerts = sum(1 for ev in recent_events if ev.get("alerted"))
     lines = [
         "🩺 <b>Daily check-in: monitor is running</b>",
         (f"Watching: {e(filt)}\n" if filt else "")
-        + f"{len(active)} matching rewards listed, {avail} purchasable. Alerts sent in the last 24h: {alerts}.",
+        + f"{len(active)} matching {'reward' if len(active) == 1 else 'rewards'} in the store, {avail} purchasable. "
+        f"Alerts sent in the last 24h: {alerts}.",
         "",
-    ] + (status_list(active) or ["(none right now)"]) + [f"\n<i>{e(_local(now, tz))}</i>"]
+    ] + (status_list(active) or ["(none right now)"])
+    if removed:
+        lines += ["", "🗑 <b>Pulled from the store by myVIP</b> (you'll get an alert if one comes back):"]
+        lines += [f"• {e(r.get('title'))} · {e(fmt_points(r.get('price')))}" for r in removed]
+    lines.append(f"\n<i>{e(_local(now, tz))}</i>")
     return "\n".join(lines)
+
+
+def _within(iso: str | None, now: datetime, days: int) -> bool:
+    try:
+        return (now - datetime.fromisoformat(iso)).days < days
+    except (TypeError, ValueError):
+        return False

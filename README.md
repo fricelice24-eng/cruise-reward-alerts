@@ -278,7 +278,7 @@ Ongoing cost: **$0**. No servers, no paid plans.
 Requires Python 3.10+ and no extra packages.
 
 ```bash
-python3 -m unittest discover -s tests -v   # 38 tests
+python3 -m unittest discover -s tests -v   # 39 tests
 python3 -m cruisewatch demo                # offline simulation of new/restock/outage detection
 TELEGRAM_BOT_TOKEN=... TELEGRAM_CHAT_ID=... python3 -m cruisewatch test --live
 python3 -m cruisewatch check               # one real monitoring pass (state in data/state.json)

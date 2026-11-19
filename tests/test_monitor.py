@@ -407,6 +407,23 @@ class FilterTests(unittest.TestCase):
             self.assertFalse(region_matches(port, "asia"), port)
 
 
+class DailyMessageTests(unittest.TestCase):
+    def test_pulled_rewards_are_explained(self):
+        now = datetime(2026, 11, 19, 2, 38, tzinfo=timezone.utc)
+        recs = [
+            {"title": "8 Night Best of Asia", "partner": "Royal Caribbean", "status": "sold_out", "price": 450000},
+            {"title": "9 Night Best of Japan", "partner": "Royal Caribbean", "status": "removed", "price": 500000,
+             "removed_at": "2026-11-19T01:49:24+00:00"},
+            {"title": "Old pulled cruise", "partner": "Royal Caribbean", "status": "removed", "price": 1,
+             "removed_at": "2026-10-01T00:00:00+00:00"},
+        ]
+        text = messages.daily_message(recs, now, "Asia/Bangkok", [])
+        self.assertIn("1 matching reward in the store", text)
+        self.assertIn("Pulled from the store", text)
+        self.assertIn("9 Night Best of Japan", text)
+        self.assertNotIn("Old pulled cruise", text)
+
+
 class DateTests(unittest.TestCase):
     def test_parse(self):
         from datetime import date
