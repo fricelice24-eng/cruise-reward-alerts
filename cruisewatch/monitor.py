@@ -101,7 +101,7 @@ class Monitor:
             self.note(f"FETCH FAILED ({health['consecutive_failures']} in a row): {e}")
             if (health["consecutive_failures"] >= cfg.failure_alert_threshold
                     and not health.get("failure_alert_sent")):
-                if self.tg.send(
+                if self._problem(
                     "⚠️ <b>Cruise monitor problem</b>\n"
                     f"The myVIP rewards API has failed {health['consecutive_failures']} checks in a row, "
                     "so alerts are paused until it recovers. You'll get a message when it does.\n\n"
@@ -112,7 +112,7 @@ class Monitor:
             return {"ok": False, "error": str(e)}
 
         if health.get("failure_alert_sent"):
-            self.tg.send(
+            self._problem(
                 "✅ <b>Cruise monitor recovered</b>\nThe myVIP API is responding again; "
                 "monitoring has resumed.", silent=True)
         health.update(consecutive_failures=0, failure_alert_sent=False, last_error=None)
@@ -130,7 +130,7 @@ class Monitor:
             health["empty_feed_checks"] = int(health.get("empty_feed_checks") or 0) + 1
             if (health["empty_feed_checks"] >= cfg.failure_alert_threshold
                     and not health.get("empty_feed_alert_sent")):
-                if self.tg.send(
+                if self._problem(
                     "⚠️ <b>Cruise monitor warning</b>\nThe myVIP Cruise category has returned "
                     f"<b>zero</b> rewards for {health['empty_feed_checks']} checks in a row. Either "
                     "the store is genuinely empty or the API has changed. Have a look in the app."
@@ -138,7 +138,7 @@ class Monitor:
                     health["empty_feed_alert_sent"] = True
         else:
             if health.get("empty_feed_alert_sent"):
-                self.tg.send("✅ <b>Cruise rewards are showing again</b> in the myVIP feed.", silent=True)
+                self._problem("✅ <b>Cruise rewards are showing again</b> in the myVIP feed.", silent=True)
             health.update(empty_feed_checks=0, empty_feed_alert_sent=False)
 
         # 3. First run: baseline, no flood of alerts --------------------------
@@ -225,6 +225,13 @@ class Monitor:
                               silent=ev.type in ("SOLD_OUT", "PRICE"))
             commit_event(state, ev, now, delivered=ok)
             self.note(f"{'ALERTED' if ok else 'ALERT FAILED (will retry)'} {ev.summary()}")
+
+    def _problem(self, text: str, silent: bool = False) -> bool:
+        """Monitor-health messages: off unless NOTIFY_PROBLEMS=true (logged either way)."""
+        if not self.config.notify_problems:
+            self.note("(health message not sent, NOTIFY_PROBLEMS off) " + text.split("\n")[0])
+            return True
+        return self.tg.send(text, silent=silent)
 
     def _live_check(self, rec: dict, now: datetime) -> bool:
         """Re-read the reward's own page right before alerting.

@@ -31,8 +31,9 @@ def cmd_check(cfg: Config) -> int:
     except Exception as e:  # unexpected bug: make it loud everywhere
         logging.exception("Monitor crashed")
         ping_healthcheck(cfg.healthcheck_url, "/fail")
-        mon.tg.send(f"🛑 <b>Cruise monitor crashed</b>\n<code>{messages.e(repr(e)[:500])}</code>\n"
-                    "Check the GitHub Actions log.")
+        if cfg.notify_problems:
+            mon.tg.send(f"🛑 <b>Cruise monitor crashed</b>\n<code>{messages.e(repr(e)[:500])}</code>\n"
+                        "Check the GitHub Actions log.")
         write_step_summary(mon.report + [f"CRASH: {e!r}"])
         return 1
     write_step_summary(mon.report)

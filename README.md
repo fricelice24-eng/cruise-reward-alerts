@@ -1,5 +1,7 @@
 # 🛳 Cruise Reward Alerts: myVIP / POP! Slots → Telegram
 
+**You only get a message when you can buy something.** No daily check-ins, startup lists or status notices (each can be switched back on below).
+
 **Current filter: Royal Caribbean, actual cruises only (4-night, 5-night, 8-night, 9-night…), departing from Asia.** Free play, onboard credit, discounts, NCL and non-Asia sailings are tracked silently but never alert you. Change this anytime (see *Settings* below).
 
 Sends a Telegram message to your phone within about 5 minutes when:
@@ -205,7 +207,7 @@ Royal Caribbean
 ↕️ Quantity: 0 → 3
 ```
 
-Plus a silent **🩺 Daily check-in** each morning (09:00 Bangkok time by default) listing every cruise reward and its status, so you can see the monitor is alive even on quiet days.
+Those are the only messages you'll receive. If you'd like reassurance that it's still running, set `DAILY_SUMMARY_HOUR` (silent daily list) or `NOTIFY_PROBLEMS` (outage/crash notices), or set up the healthchecks.io watchdog in step 8.
 
 ---
 
@@ -224,7 +226,9 @@ Repo → **Settings → Secrets and variables → Actions → Variables tab → 
 | `ALERT_QUANTITY_INCREASE` | `true` | Alert when inventory is topped up on a reward that's still for sale |
 | `ALERT_SOLD_OUT` | `false` | Also send a (silent) message when something sells out |
 | `ALERT_PRICE_CHANGE` | `false` | Also send a (silent) message when a point price changes |
-| `DAILY_SUMMARY_HOUR` | `9` | Local hour for the daily check-in; `-1` turns it off |
+| `DAILY_SUMMARY_HOUR` | `-1` (off) | Set to an hour (e.g. `9`) to get a silent daily check-in listing what's tracked |
+| `FIRST_RUN_SUMMARY` | `false` | `true` = send the list of tracked rewards after a fresh start |
+| `NOTIFY_PROBLEMS` | `false` | `true` = also message you if the myVIP API fails or the bot crashes (and when it recovers) |
 | `TIMEZONE` | `Asia/Bangkok` | Time zone for timestamps and the daily check-in |
 | `SWEEP_DESTINATIONS` | `1,2,3,7` | Other store categories swept hourly for cruise rewards |
 | `REMOVAL_CONFIRM_CHECKS` | `2` | Consecutive checks a reward must be missing before it counts as "pulled" |
@@ -278,7 +282,7 @@ Ongoing cost: **$0**. No servers, no paid plans.
 Requires Python 3.10+ and no extra packages.
 
 ```bash
-python3 -m unittest discover -s tests -v   # 39 tests
+python3 -m unittest discover -s tests -v   # 40 tests
 python3 -m cruisewatch demo                # offline simulation of new/restock/outage detection
 TELEGRAM_BOT_TOKEN=... TELEGRAM_CHAT_ID=... python3 -m cruisewatch test --live
 python3 -m cruisewatch check               # one real monitoring pass (state in data/state.json)

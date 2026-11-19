@@ -143,7 +143,8 @@ def run_demo(send_to: Telegram | None = None, out=print) -> list[tuple[str, list
     results = []
     with tempfile.TemporaryDirectory() as tmp:
         cfg = Config(state_file=Path(tmp) / "state.json", daily_summary_hour=-1,
-                     sweep_destinations=(1,), dry_run=True)
+                     sweep_destinations=(1,), dry_run=True,
+                     first_run_summary=True, notify_problems=True)
         tg = Telegram("", "", dry_run=True)
         mon = Monitor(cfg, telegram=tg, fetcher=fetcher, clock=lambda: clock[0])
         for label, feed in scenario():

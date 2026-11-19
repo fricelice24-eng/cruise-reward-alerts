@@ -40,6 +40,8 @@ jobs:
           ALERT_SOLD_OUT: ${{ vars.ALERT_SOLD_OUT }}
           ALERT_PRICE_CHANGE: ${{ vars.ALERT_PRICE_CHANGE }}
           DAILY_SUMMARY_HOUR: ${{ vars.DAILY_SUMMARY_HOUR }}
+          NOTIFY_PROBLEMS: ${{ vars.NOTIFY_PROBLEMS }}
+          FIRST_RUN_SUMMARY: ${{ vars.FIRST_RUN_SUMMARY }}
           TIMEZONE: ${{ vars.TIMEZONE }}
           SWEEP_DESTINATIONS: ${{ vars.SWEEP_DESTINATIONS }}
           REMOVAL_CONFIRM_CHECKS: ${{ vars.REMOVAL_CONFIRM_CHECKS }}

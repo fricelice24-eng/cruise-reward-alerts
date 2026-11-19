@@ -68,13 +68,14 @@ class Config:
     alert_quantity_increase: bool = True
     alert_sold_out: bool = False
     alert_price_change: bool = False
-    first_run_summary: bool = True
+    first_run_summary: bool = False
+    notify_problems: bool = False
 
     sweep_destinations: tuple[int, ...] = DEFAULT_SWEEP_DESTINATIONS
     sweep_interval_minutes: int = 60
     removal_confirm_checks: int = 2
     failure_alert_threshold: int = 3
-    daily_summary_hour: int = 9  # local hour, -1 disables
+    daily_summary_hour: int = -1  # local hour, -1 disables
     timezone: str = "Asia/Bangkok"
     max_individual_alerts: int = 15
     dry_run: bool = False
@@ -96,12 +97,13 @@ class Config:
             alert_quantity_increase=_bool("ALERT_QUANTITY_INCREASE", True),
             alert_sold_out=_bool("ALERT_SOLD_OUT", False),
             alert_price_change=_bool("ALERT_PRICE_CHANGE", False),
-            first_run_summary=_bool("FIRST_RUN_SUMMARY", True),
+            first_run_summary=_bool("FIRST_RUN_SUMMARY", False),
+            notify_problems=_bool("NOTIFY_PROBLEMS", False),
             sweep_destinations=_int_list("SWEEP_DESTINATIONS", DEFAULT_SWEEP_DESTINATIONS),
             sweep_interval_minutes=_int("SWEEP_INTERVAL_MINUTES", 60),
             removal_confirm_checks=max(1, _int("REMOVAL_CONFIRM_CHECKS", 2)),
             failure_alert_threshold=max(1, _int("FAILURE_ALERT_THRESHOLD", 3)),
-            daily_summary_hour=_int("DAILY_SUMMARY_HOUR", 9),
+            daily_summary_hour=_int("DAILY_SUMMARY_HOUR", -1),
             timezone=os.environ.get("TIMEZONE", "Asia/Bangkok").strip() or "Asia/Bangkok",
             max_individual_alerts=max(1, _int("MAX_INDIVIDUAL_ALERTS", 15)),
             dry_run=_bool("DRY_RUN", False),

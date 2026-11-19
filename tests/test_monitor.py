@@ -60,10 +60,11 @@ class Harness:
         self.other = {"Lanes": []}
         self.error = None
         self.now = datetime(2026, 10, 20, 3, 0, tzinfo=timezone.utc)
-        self.cfg = Config(state_file=Path(self.tmp.name) / "state.json", daily_summary_hour=-1,
+        self.cfg = Config(state_file=Path(self.tmp.name) / "state.json",
                           sweep_destinations=(1,), dry_run=True,
                           **{"only_cruise_line": "", "only_full_cruises": False,
-                             "only_departure_region": "any", **cfg})
+                             "only_departure_region": "any", "first_run_summary": True,
+                             "notify_problems": True, "daily_summary_hour": -1, **cfg})
         self.tg = FakeTelegram()
 
     def fetch(self, url):
@@ -359,11 +360,38 @@ RC_USA = dict(RC_ASIA, AwardID=7002, OfferID=7102, Title="7 Night Western Caribb
                                "Port Canaveral, Florida for 7 nights sailing on 02/14/2027.")
 
 
+class QuietDefaultsTests(unittest.TestCase):
+    """Real defaults: the ONLY messages are 'you can buy this now' alerts."""
+
+    def test_only_purchasable_alerts_are_sent(self):
+        h = Harness(**{f: getattr(Config(), f) for f in (
+            "first_run_summary", "notify_problems", "daily_summary_hour",
+            "only_cruise_line", "only_full_cruises", "only_departure_region")})
+        self.assertEqual(h.run()[1], [])                         # no startup list
+        h.error = FetchError("503")
+        for _ in range(5):
+            self.assertEqual(h.run()[1], [])                     # no outage notice
+        h.error = None
+        self.assertEqual(h.run()[1], [])                         # no recovery notice
+        h.feed = {"Lanes": []}
+        for _ in range(4):
+            self.assertEqual(h.run()[1], [])                     # no empty-store warning
+        h.feed = copy.deepcopy(FEED)
+        self.assertEqual(h.run()[1], [])
+        h.now = datetime(2026, 11, 20, 3, 0, tzinfo=timezone.utc)  # past 09:00 local: still no check-in
+        self.assertEqual(h.run()[1], [])
+        set_award(h.feed, 11021, Quantity=2, SnipeText=None, SnipeCategory=None)  # Best of Asia restock
+        _, msgs = h.run()
+        self.assertEqual(len(msgs), 1)
+        self.assertIn("BACK IN STOCK", msgs[0])
+
+
 class FilterTests(unittest.TestCase):
     """Default filter: Royal Caribbean, real 'N Night' cruises, departing Asia."""
 
     def harness(self):
         return Harness(only_cruise_line="Royal Caribbean", only_full_cruises=True, only_departure_region="asia")
+
 
     def test_only_rc_asia_cruises_alert(self):
         h = self.harness()
