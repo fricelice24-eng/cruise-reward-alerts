@@ -586,6 +586,56 @@
    "quantity": 25,
    "title": "RCCL $150 in FREEPLAY",
    "type": "QTY_UP"
+  },
+  {
+   "alerted": false,
+   "at": "2026-11-20T17:28:15+00:00",
+   "award_id": "11239",
+   "partner": "Norwegian Cruise Line",
+   "price": 500000,
+   "quantity": 100,
+   "title": "Comp 7 Day NCL Cruise",
+   "type": "QTY_UP"
+  },
+  {
+   "alerted": false,
+   "at": "2026-11-20T17:28:15+00:00",
+   "award_id": "11238",
+   "partner": "Norwegian Cruise Line",
+   "price": 500000,
+   "quantity": 100,
+   "title": "Comp 3-5 Day NCL Cruise",
+   "type": "QTY_UP"
+  },
+  {
+   "alerted": false,
+   "at": "2026-11-20T17:28:15+00:00",
+   "award_id": "11236",
+   "partner": "Norwegian Cruise Line",
+   "price": 500000,
+   "quantity": 100,
+   "title": "Comp 4-7-Day NCL Cruise",
+   "type": "QTY_UP"
+  },
+  {
+   "alerted": false,
+   "at": "2026-11-20T17:28:15+00:00",
+   "award_id": "11237",
+   "partner": "Norwegian Cruise Line",
+   "price": 500000,
+   "quantity": 100,
+   "title": "Comp 7 Day Mexican Cruise",
+   "type": "QTY_UP"
+  },
+  {
+   "alerted": false,
+   "at": "2026-11-20T17:28:15+00:00",
+   "award_id": "11235",
+   "partner": "Norwegian Cruise Line",
+   "price": 500000,
+   "quantity": 100,
+   "title": "Comp 4-5 Night NCL Cruise",
+   "type": "QTY_UP"
   }
  ],
  "health": {
@@ -597,7 +647,7 @@
  },
  "initialized_at": "2026-11-16T08:53:33+00:00",
  "last_daily_summary": "2026-11-19",
- "last_sweep_at": "2026-11-20T15:34:55+00:00",
+ "last_sweep_at": "2026-11-20T17:28:15+00:00",
  "rewards": {
   "11020": {
    "award_id": "11020",
@@ -617,7 +667,7 @@
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 0,
-   "missing_checks": 0,
+   "missing_checks": 1,
    "offer_id": 40957,
    "outlet": "Spectrum of the Seas",
    "partner": "Royal Caribbean",
@@ -646,7 +696,7 @@
     "sailing": "1/03/2027",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-20T16:30:56.6335255+00:00",
+   "expires": "2026-12-20T17:28:15.8279652+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 0,
@@ -751,7 +801,7 @@
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 1,
-   "missing_checks": 0,
+   "missing_checks": 1,
    "offer_id": 40961,
    "outlet": "Spectrum of the Seas",
    "partner": "Royal Caribbean",
@@ -770,7 +820,7 @@
    "award_id": "11235",
    "destination": 8,
    "detail": {
-    "_fetched_at": "2026-11-19T19:36:05+00:00",
+    "_fetched_at": "2026-11-20T17:28:15+00:00",
     "_offer_id": 41228,
     "book_by": "November 30, 2026",
     "nights": "4-5 nights",
@@ -790,7 +840,7 @@
    "partner": "Norwegian Cruise Line",
    "premium": false,
    "price": 500000,
-   "quantity": 98,
+   "quantity": 100,
    "short_description": null,
    "snipe": "NEW REWARD!",
    "status": "available",
@@ -803,7 +853,7 @@
    "award_id": "11236",
    "destination": 8,
    "detail": {
-    "_fetched_at": "2026-11-19T19:36:05+00:00",
+    "_fetched_at": "2026-11-20T17:28:15+00:00",
     "_offer_id": 41229,
     "book_by": "November 30, 2026",
     "nights": "4-7 days",
@@ -823,7 +873,7 @@
    "partner": "Norwegian Cruise Line",
    "premium": false,
    "price": 500000,
-   "quantity": 98,
+   "quantity": 100,
    "short_description": null,
    "snipe": "NEW REWARD!",
    "status": "available",
@@ -836,7 +886,7 @@
    "award_id": "11237",
    "destination": 8,
    "detail": {
-    "_fetched_at": "2026-11-19T19:36:05+00:00",
+    "_fetched_at": "2026-11-20T17:28:15+00:00",
     "_offer_id": 41230,
     "book_by": "November 30, 2026",
     "nights": "7 days",
@@ -856,7 +906,7 @@
    "partner": "Norwegian Cruise Line",
    "premium": false,
    "price": 500000,
-   "quantity": 97,
+   "quantity": 100,
    "short_description": null,
    "snipe": "NEW REWARD!",
    "status": "available",
@@ -869,7 +919,7 @@
    "award_id": "11238",
    "destination": 8,
    "detail": {
-    "_fetched_at": "2026-11-17T16:20:07+00:00",
+    "_fetched_at": "2026-11-20T17:28:15+00:00",
     "_offer_id": 41231,
     "book_by": "November 30, 2026",
     "nights": "3-5 days",
@@ -889,7 +939,7 @@
    "partner": "Norwegian Cruise Line",
    "premium": false,
    "price": 500000,
-   "quantity": 98,
+   "quantity": 100,
    "short_description": null,
    "snipe": "NEW REWARD!",
    "status": "available",
@@ -902,7 +952,7 @@
    "award_id": "11239",
    "destination": 8,
    "detail": {
-    "_fetched_at": "2026-11-19T19:36:05+00:00",
+    "_fetched_at": "2026-11-20T17:28:15+00:00",
     "_offer_id": 41232,
     "book_by": "November 30, 2026",
     "nights": "7 days",
@@ -922,7 +972,7 @@
    "partner": "Norwegian Cruise Line",
    "premium": false,
    "price": 500000,
-   "quantity": 92,
+   "quantity": 100,
    "short_description": null,
    "snipe": "NEW REWARD!",
    "status": "available",
@@ -945,7 +995,7 @@
     "sailing": "Sailings departing by November 30, 2027",
     "ship": "Any ship (excluding Pride of America)"
    },
-   "expires": "2026-12-20T16:30:56.6335255+00:00",
+   "expires": "2026-12-20T17:28:15.8279652+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Various Ports",
    "missing_checks": 0,
@@ -977,7 +1027,7 @@
     "sailing": "Sailings departing by November 30, 2027",
     "ship": "Any ship (excluding Pride of America)"
    },
-   "expires": "2026-12-20T16:30:56.6335255+00:00",
+   "expires": "2026-12-20T17:28:15.8279652+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Various Ports",
    "missing_checks": 0,
@@ -1009,7 +1059,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-20T16:30:56.6335255+00:00",
+   "expires": "2026-12-20T17:28:15.8279652+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 40,
@@ -1042,7 +1092,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-20T16:30:56.6335255+00:00",
+   "expires": "2026-12-20T17:28:15.8279652+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 50,
@@ -1075,7 +1125,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-20T16:30:56.6335255+00:00",
+   "expires": "2026-12-20T17:28:15.8279652+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 60,
@@ -1108,7 +1158,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-20T16:30:56.6335255+00:00",
+   "expires": "2026-12-20T17:28:15.8279652+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 25,
@@ -1118,7 +1168,7 @@
    "partner": "Royal Caribbean",
    "premium": false,
    "price": 140000,
-   "quantity": 25,
+   "quantity": 24,
    "short_description": null,
    "snipe": null,
    "status": "available",
@@ -1141,7 +1191,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-20T16:30:56.6335255+00:00",
+   "expires": "2026-12-20T17:28:15.8279652+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 60,
@@ -1174,7 +1224,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-20T16:30:56.6335255+00:00",
+   "expires": "2026-12-20T17:28:15.8279652+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 60,
