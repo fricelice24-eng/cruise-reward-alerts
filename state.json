@@ -1966,6 +1966,16 @@
    "quantity": 77,
    "title": "Comp 4-5 Night NCL Cruise",
    "type": "QTY_UP"
+  },
+  {
+   "alerted": false,
+   "at": "2026-11-28T07:43:06+00:00",
+   "award_id": "4719",
+   "partner": "Royal Caribbean",
+   "price": 25000,
+   "quantity": 42,
+   "title": "$100 in FREEPLAY",
+   "type": "QTY_UP"
   }
  ],
  "health": {
@@ -1977,7 +1987,7 @@
  },
  "initialized_at": "2026-11-16T08:53:33+00:00",
  "last_daily_summary": "2026-11-19",
- "last_sweep_at": "2026-11-28T05:24:53+00:00",
+ "last_sweep_at": "2026-11-28T07:43:06+00:00",
  "rewards": {
   "11020": {
    "award_id": "11020",
@@ -2027,7 +2037,7 @@
     "sailing": "1/03/2027",
     "ship": "Spectrum of the Seas, Royal Caribbean"
    },
-   "expires": "2026-12-28T06:23:45.727161+00:00",
+   "expires": "2026-12-28T07:43:06.8563212+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Spectrum of the Seas",
    "max_quantity": 0,
@@ -2172,7 +2182,7 @@
    "partner": "Norwegian Cruise Line",
    "premium": false,
    "price": 250000,
-   "quantity": 76,
+   "quantity": 73,
    "short_description": null,
    "snipe": "NEW REWARD!",
    "status": "available",
@@ -2238,7 +2248,7 @@
    "partner": "Norwegian Cruise Line",
    "premium": false,
    "price": 250000,
-   "quantity": 68,
+   "quantity": 67,
    "short_description": null,
    "snipe": "NEW REWARD!",
    "status": "available",
@@ -2327,7 +2337,7 @@
     "sailing": "Sailings departing by November 30, 2027",
     "ship": "Any ship (excluding Pride of America)"
    },
-   "expires": "2026-12-28T06:23:45.727161+00:00",
+   "expires": "2026-12-28T07:43:06.8563212+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Various Ports",
    "missing_checks": 0,
@@ -2359,7 +2369,7 @@
     "sailing": "Sailings departing by November 30, 2027",
     "ship": "Any ship (excluding Pride of America)"
    },
-   "expires": "2026-12-28T06:23:45.727161+00:00",
+   "expires": "2026-12-28T07:43:06.8563212+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Various Ports",
    "missing_checks": 0,
@@ -2391,7 +2401,7 @@
     "sailing": "1/17/2027",
     "ship": "Serenade of the Seas"
    },
-   "expires": "2026-12-28T06:23:45.727161+00:00",
+   "expires": "2026-12-28T07:43:06.8563212+00:00",
    "first_seen": "2026-11-26T01:42:12+00:00",
    "location": "Serenade of the Seas",
    "max_quantity": 5,
@@ -2457,7 +2467,7 @@
     "sailing": "1/18/2027",
     "ship": "Allure of the Seas"
    },
-   "expires": "2026-12-28T06:23:45.727161+00:00",
+   "expires": "2026-12-28T07:43:06.8563212+00:00",
    "first_seen": "2026-11-26T01:42:12+00:00",
    "location": "Allure of The Seas",
    "max_quantity": 5,
@@ -2556,7 +2566,7 @@
     "sailing": "3/11/2027",
     "ship": "Liberty of the Seas"
    },
-   "expires": "2026-12-28T06:23:45.727161+00:00",
+   "expires": "2026-12-28T07:43:06.8563212+00:00",
    "first_seen": "2026-11-26T01:42:12+00:00",
    "location": "Liberty of the Seas",
    "max_quantity": 5,
@@ -2589,7 +2599,7 @@
     "sailing": "3/25/2027",
     "ship": "Liberty of the Seas"
    },
-   "expires": "2026-12-28T06:23:45.727161+00:00",
+   "expires": "2026-12-28T07:43:06.8563212+00:00",
    "first_seen": "2026-11-26T01:42:12+00:00",
    "location": "Liberty of the Seas",
    "max_quantity": 5,
@@ -2622,7 +2632,7 @@
     "sailing": "3/29/2027",
     "ship": "Liberty of the Seas"
    },
-   "expires": "2026-12-28T06:23:45.727161+00:00",
+   "expires": "2026-12-28T07:43:06.8563212+00:00",
    "first_seen": "2026-11-26T01:42:12+00:00",
    "location": "Liberty of the Seas",
    "max_quantity": 5,
@@ -2655,7 +2665,7 @@
     "sailing": "4/3/2027",
     "ship": "Liberty of the Seas"
    },
-   "expires": "2026-12-28T06:23:45.727161+00:00",
+   "expires": "2026-12-28T07:43:06.8563212+00:00",
    "first_seen": "2026-11-26T01:42:12+00:00",
    "location": "Liberty of the Seas",
    "max_quantity": 4,
@@ -2688,7 +2698,7 @@
     "sailing": "04/08/2027",
     "ship": "Liberty of the Seas, Radiance of the Seas"
    },
-   "expires": "2026-12-28T06:23:45.727161+00:00",
+   "expires": "2026-12-28T07:43:06.8563212+00:00",
    "first_seen": "2026-11-26T01:42:12+00:00",
    "location": "Liberty of the Seas",
    "max_quantity": 5,
@@ -2721,7 +2731,7 @@
     "sailing": "04/17/2027",
     "ship": "Liberty of the Seas, Radiance of the Seas"
    },
-   "expires": "2026-12-28T06:23:45.727161+00:00",
+   "expires": "2026-12-28T07:43:06.8563212+00:00",
    "first_seen": "2026-11-26T01:42:12+00:00",
    "location": "Liberty of the Seas",
    "max_quantity": 5,
@@ -2754,7 +2764,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-28T06:23:45.727161+00:00",
+   "expires": "2026-12-28T07:43:06.8563212+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 40,
@@ -2787,7 +2797,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-28T06:23:45.727161+00:00",
+   "expires": "2026-12-28T07:43:06.8563212+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 50,
@@ -2797,7 +2807,7 @@
    "partner": "Royal Caribbean",
    "premium": true,
    "price": 17500,
-   "quantity": 19,
+   "quantity": 18,
    "short_description": null,
    "snipe": null,
    "status": "available",
@@ -2810,17 +2820,17 @@
    "award_id": "4719",
    "destination": 8,
    "detail": {
-    "_fetched_at": "2026-11-27T15:51:44+00:00",
+    "_fetched_at": "2026-11-28T07:43:06+00:00",
     "_offer_id": 41857,
     "book_by": null,
     "nights": null,
     "page_title": "$100 in FREEPLAY",
     "port": null,
-    "redeem_by": "12/27/2026 3:51:46 PM (UTC)",
+    "redeem_by": "12/28/2026 7:43:08 AM (UTC)",
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-28T06:23:45.727161+00:00",
+   "expires": "2026-12-28T07:43:08.3134568+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 60,
@@ -2830,7 +2840,7 @@
    "partner": "Royal Caribbean",
    "premium": false,
    "price": 25000,
-   "quantity": 40,
+   "quantity": 42,
    "short_description": null,
    "snipe": null,
    "status": "available",
@@ -2853,7 +2863,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-28T06:23:45.727161+00:00",
+   "expires": "2026-12-28T07:43:06.8563212+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 25,
@@ -2886,7 +2896,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-28T06:23:45.727161+00:00",
+   "expires": "2026-12-28T07:43:06.8563212+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 60,
@@ -2919,7 +2929,7 @@
     "sailing": null,
     "ship": null
    },
-   "expires": "2026-12-28T06:23:45.727161+00:00",
+   "expires": "2026-12-28T07:43:06.8563212+00:00",
    "first_seen": "2026-11-16T08:53:33+00:00",
    "location": "Any Sailing",
    "max_quantity": 60,
